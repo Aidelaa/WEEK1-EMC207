@@ -7,6 +7,7 @@ public class EnemyBehavior : MonoBehaviour
     public Transform playerPos;
     public float sightRange;
     public float distanceToPlayer;
+    public Transform pointA,pointB;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
