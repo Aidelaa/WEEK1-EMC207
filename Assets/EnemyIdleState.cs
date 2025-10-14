@@ -10,14 +10,14 @@ public class EnemyIdleState : StateMachineBehaviour
        EnemyBehavior _eB = animator.GetComponent<EnemyBehavior>();
        _eB.agent.speed = 0; 
     //    after 5 sec, exit idle -> patrol
-        await Task.Delay(5000);
-        animator.SetBool("IsPatrol", true);
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override async public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+       await Task.Delay(5000);
+        animator.SetBool("IsPatrol", true);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
