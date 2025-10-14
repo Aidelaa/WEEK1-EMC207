@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 public class EnemyIdleState : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override async public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+
        EnemyBehavior _eB = animator.GetComponent<EnemyBehavior>();
        _eB.agent.speed = 0; 
+    //    after 5 sec, exit idle -> patrol
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
