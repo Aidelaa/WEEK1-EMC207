@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class EnemyPatrolState : StateMachineBehaviour
 {
+    EnemyBehavior _eB;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       EnemyBehavior _eB = animator.GetComponent<EnemyBehavior>();
+       _eB = animator.GetComponent<EnemyBehavior>();
+       _eB.agent.speed = 3;
        _eB.agent.SetDestination(_eB.pointB.position);
     }
 
