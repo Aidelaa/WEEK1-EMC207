@@ -8,6 +8,7 @@ public class EnemyBehavior : MonoBehaviour
     public float sightRange;
     public float distanceToPlayer;
     public Transform pointA,pointB;
+    public float attackRange;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,5 +19,11 @@ public class EnemyBehavior : MonoBehaviour
     void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position,playerPos.position);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position,sightRange);
     }
 }
