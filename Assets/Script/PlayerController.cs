@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Move with mouse click (click to move)
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);

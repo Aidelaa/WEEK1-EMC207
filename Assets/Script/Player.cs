@@ -1,44 +1,42 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    public string enemyTag = "Enemy";   // tag used for all enemies
-    public float sightRange = 5f;       // distance for color change
-    private Renderer playerRenderer;    // reference to player's material
+    public string enemyTag = "Enemy";
+    public float sightRange = 5f;
+    private Renderer playerRenderer;
 
     void Start()
     {
-        // Get player's renderer
         playerRenderer = GetComponentInChildren<Renderer>();
     }
 
     void Update()
     {
-        // Find all enemies by tag
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
         foreach (GameObject enemy in enemies)
         {
             if (enemy == null) continue;
 
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
 
-            // Check if enemy is within range
-            if (distanceToEnemy <= sightRange)
+            if (distance <= sightRange)
             {
                 Renderer enemyRenderer = enemy.GetComponentInChildren<Renderer>();
-
                 if (enemyRenderer != null && playerRenderer != null)
                 {
+                    // Change enemy color to match player
                     enemyRenderer.material.color = playerRenderer.material.color;
                 }
 
-                // Optional: make enemy follow player if it has NavMeshAgent
-                NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-                if (agent != null)
+                // Tell the enemy to start following the player
+                AIBehaviour ai = enemy.GetComponent<AIBehaviour>();
+                if (ai != null)
                 {
-                    agent.SetDestination(transform.position);
+                    ai.isFollowing = true;
+                    ai.player = transform; // give it reference to player
                 }
             }
         }

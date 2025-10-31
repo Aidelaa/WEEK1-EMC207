@@ -1,28 +1,52 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Unity.AI.Navigation.Samples
 {
-    /// <summary>
-    /// Walk to a random position and repeat
-    /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
-    public class RandomWalk : MonoBehaviour
+    public class AIBehaviour : MonoBehaviour
     {
-        public float m_Range = 25.0f;
-        NavMeshAgent m_Agent;
+        [Header("Settings")]
+        public float roamRange = 25f;     // how far it can wander
+        public float roamDelay = 3f;      // how often it picks new spots
+
+        [HideInInspector] public Transform player;
+        [HideInInspector] public bool isFollowing = false;
+
+        private NavMeshAgent agent;
+        private Renderer enemyRenderer;
+        private float nextRoamTime = 0f;
 
         void Start()
         {
-            m_Agent = GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
+            enemyRenderer = GetComponentInChildren<Renderer>();
         }
 
         void Update()
         {
-            if (m_Agent.pathPending || !m_Agent.isOnNavMesh || m_Agent.remainingDistance > 0.1f)
-                return;
+            if (!agent.isOnNavMesh) return;
 
-            m_Agent.destination = m_Range * Random.insideUnitCircle;
+            // 👣 FOLLOW PLAYER
+            if (isFollowing && player != null)
+            {
+                agent.SetDestination(player.position);
+                return; // stop random roaming
+            }
+
+            // 🚶 RANDOM ROAMING
+            if (Time.time >= nextRoamTime && !agent.pathPending && agent.remainingDistance < 0.2f)
+            {
+                Vector3 randomDirection = Random.insideUnitSphere * roamRange;
+                randomDirection.y = 0;
+
+                if (NavMesh.SamplePosition(transform.position + randomDirection, out NavMeshHit hit, roamRange, NavMesh.AllAreas))
+                {
+                    agent.SetDestination(hit.position);
+                }
+
+                nextRoamTime = Time.time + roamDelay;
+            }
         }
     }
 }

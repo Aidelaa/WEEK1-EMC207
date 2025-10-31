@@ -27,17 +27,15 @@ public class SimpleEnemyAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Get player references
+
             player = collision.transform;
             playerRenderer = player.GetComponentInChildren<Renderer>();
 
             if (playerRenderer != null && enemyRenderer != null)
             {
-                // Change enemy color to match player
                 enemyRenderer.material.color = playerRenderer.material.color;
             }
 
-            // Start following the player permanently
             shouldFollow = true;
         }
     }

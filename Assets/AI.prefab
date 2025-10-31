@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8922764773608724394}
   - component: {fileID: 4095887081820569299}
   - component: {fileID: 4842228136042999646}
-  - component: {fileID: 2806089786088815072}
-  - component: {fileID: 5774188549367728353}
+  - component: {fileID: -35651351123713988}
+  - component: {fileID: -9186348530800134762}
   m_Layer: 0
   m_Name: AI
   m_TagString: Enemy
@@ -135,7 +135,21 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2806089786088815072
+--- !u!114 &-35651351123713988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4569444917767165044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff871f53e28ef64f9cc9bcc19dfd5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  isFollowing: 0
+--- !u!114 &-9186348530800134762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,19 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd76b8ee2dbcf4be6998e917c65cd6ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Range: 25
---- !u!114 &5774188549367728353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4569444917767165044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59576dafc882cd3408927ccdb98f5f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 4842228136042999646}
+  roamRange: 25
+  roamDelay: 3
   player: {fileID: 0}
-  followRange: 10
+  isFollowing: 0
