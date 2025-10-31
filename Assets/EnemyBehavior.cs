@@ -9,6 +9,10 @@ public class EnemyBehavior : MonoBehaviour
     public float distanceToPlayer;
     public Transform pointA,pointB;
     public float attackRange;
+
+    private Renderer enemyRenderer;
+    private Renderer playerRenderer;
+    private bool colorChanged = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,6 +23,19 @@ public class EnemyBehavior : MonoBehaviour
     void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position,playerPos.position);
+
+        if (distanceToPlayer <= sightRange)
+        {
+            // Change color to player's color (only once)
+            if (!colorChanged && playerRenderer != null)
+            {
+                enemyRenderer.material.color = playerRenderer.material.color;
+                colorChanged = true;
+            }
+
+            // Optional: You can make the enemy follow the player too
+            agent.SetDestination(playerPos.position);
+        }
     }
 
     void OnDrawGizmos()
